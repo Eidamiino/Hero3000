@@ -10,20 +10,19 @@ namespace Hero3000
 		public const int criticalChance = 5;
 		public const int criticalMultiplier = 2;
 		public const double damageReturned = 0.25;
-		public const int physicaldefCooldown=1000;
+		public const int physicaldefCooldown= 1000;
 		public const int magicaldefCooldown = 1000;
 
 		public string name;
-		public Program.Class classtype;
 		private int currenthp;
-		public Defense physicaldef;
-		public Defense magicaldef;
-		public Attack physicalatt;
-		public Attack magicalatt;
+		private Defense physicaldef;
+		private Defense magicaldef;
+		private Attack physicalatt;
+		private Attack magicalatt;
 		public Hero(string name, int maxhp, Program.Class classtype, int physicalatt, int magicalatt, int physicaldef, int magicaldef)
 		{
 			this.name = name;
-			this.classtype = classtype;
+			ClassType = classtype;
 			Maxhp = maxhp;
 			Currenthp = maxhp;
 			this.physicaldef = new Defense(Program.Type.Physical, physicaldef, physicaldefCooldown);
@@ -31,6 +30,7 @@ namespace Hero3000
 			this.physicalatt = new Attack("Punch", Program.Type.Physical, physicalatt);
 			this.magicalatt = new Attack("Fireball", Program.Type.Magical, magicalatt);
 		}
+		public Program.Class ClassType { get; private set; }
 		public int Maxhp { get; private set; }
 		public int Currenthp
 		{
@@ -47,6 +47,9 @@ namespace Hero3000
 				}
 			}
 		}
+
+		#region Attacking
+
 		public void Attack(Hero whom, Stopwatch stopwatch)
 		{
 			int attackType = Helpers.GetRandom(0, 2);
@@ -91,23 +94,29 @@ namespace Hero3000
 		{
 			if (critical <= criticalChance)
 			{
-				Console.WriteLine("Critical attack!");
+				Console.WriteLine($"Critical attack! The DMG has been amplified {criticalMultiplier}x!");
 				dealtDamage *= criticalMultiplier;
 			}
 
 			return dealtDamage;
 		}
 
+		#endregion
+
+		#region Printing
+
 		private void PrintAttackInfo(Hero whom, string currAtt, int currDefense, int currDmg)
 		{
-			Console.WriteLine($"{name} has attacked {whom.name} with {currAtt} dealing {currDmg}DMG!");
+			Console.WriteLine($"{name} has attacked {whom.name} with {currAtt}, dealing {currDmg}DMG!");
 			Console.WriteLine($"{whom.name} has resisted {Convert.ToInt32(currDefense)}DMG!");
 		}
 
 		public static void PrintStats(Hero hero)
 		{
-			Console.WriteLine($"Fighter: {hero.name}\t{hero.classtype}\t{hero.Maxhp}HP\t{hero.physicalatt.Basedmg}DMG\t{hero.magicalatt.Basedmg}mDMG\t{hero.physicaldef.Basedef}DEF\t{hero.magicaldef.Basedef}mDEF\n");
+			Console.WriteLine($"Fighter: {hero.name}\t{hero.ClassType}\t{hero.Maxhp}HP\t{hero.physicalatt.Basedmg}DMG\t{hero.magicalatt.Basedmg}mDMG\t{hero.physicaldef.Basedef}DEF\t{hero.magicaldef.Basedef}mDEF\n");
 		}
+
+		#endregion
 		public static bool DeathCheck(Hero hero)
 		{
 			if (hero.Currenthp <= 0) return true;

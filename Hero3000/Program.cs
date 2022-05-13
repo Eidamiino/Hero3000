@@ -25,8 +25,6 @@ namespace Hero3000
 			heroes.Add(Helpers.GenerateHero("AdamP", Class.Wizard));
 			heroes.Add(Helpers.GenerateHero("Matej", Class.Pussy));
 			heroes.Add(Helpers.GenerateHero("Mirek", Class.Fighter));
-			heroes.Add(Helpers.GenerateHero("Radek", Class.Pussy));
-
 			int heroAmount = heroes.Count;
 
 			Hero first = heroes[random.Next(0,heroAmount)];
@@ -35,6 +33,7 @@ namespace Hero3000
 			{
 				second = heroes[random.Next(0, heroAmount)];
 			}
+
 			Hero.PrintStats(first);
 			Hero.PrintStats(second);
 			Fight(first, second);
@@ -43,12 +42,12 @@ namespace Hero3000
 		{
 			while (first.Currenthp > 0 && second.Currenthp > 0)
 			{
-				Stopwatch stopWatch1 = new Stopwatch();
-				stopWatch1.Start();
-				Stopwatch stopWatch2 = new Stopwatch();
-				stopWatch2.Start();
+				Stopwatch stopwatchFirst = new Stopwatch();
+				stopwatchFirst.Start();
+				Stopwatch stopwatchSecond = new Stopwatch();
+				stopwatchSecond.Start();
 
-				first.Attack(second, stopWatch1);
+				first.Attack(second, stopwatchSecond);
 				Helpers.PrintHPStatus(first, second);
 				Thread.Sleep(Helpers.GetRandom(minCooldown, maxCooldown));
 				if (Hero.DeathCheck(second))
@@ -56,9 +55,7 @@ namespace Hero3000
 					Console.WriteLine($"{second.name} has died! {first.name} won the battle!");
 					break;
 				}
-
-
-				second.Attack(first, stopWatch2);
+				second.Attack(first, stopwatchFirst);
 				Helpers.PrintHPStatus(first, second);
 				Thread.Sleep(Helpers.GetRandom(minCooldown, maxCooldown));
 				if (Hero.DeathCheck(first))
