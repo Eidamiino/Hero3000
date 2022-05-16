@@ -7,22 +7,22 @@ namespace Hero3000
 {
 	public abstract class FighterBase
 	{
-		public FighterBase(string name, int maxhp, int physicalatt=0, int magicalatt=0, int physicaldef=0, int magicaldef=0)
+		public FighterBase(string name, int maxhp)
 		{
 			Name = name;
 			MaxHp = maxhp;
 			Currenthp = maxhp;
-			PhysicalAtt = physicalatt;
-			MagicalAtt= magicalatt;
-			PhysicalDef = physicaldef;
-			MagicalDef = magicaldef;
+			PhysicalAtt = new Attack("Punch", Constants.Type.Physical, 0);
+			MagicalAtt= new Attack("Fireball", Constants.Type.Magical, 0);
+			PhysicalDef = new Defense(Constants.Type.Physical, 0, 0);
+			MagicalDef = new Defense(Constants.Type.Magical, 0, 0);
 		}
 		public string Name { get; protected set; } = "TestingEntity";
 		public int MaxHp { get; protected set; } = 100;
-		public int PhysicalAtt { get; protected set; }
-		public int MagicalAtt { get; protected set; }
-		public int PhysicalDef { get; protected set; }
-		public int MagicalDef { get; protected set; }
+		public Attack PhysicalAtt { get; protected set; }
+		public Attack MagicalAtt { get; protected set; }
+		public Defense PhysicalDef { get; protected set; }
+		public Defense MagicalDef { get; protected set; }
 
 		private int currenthp;
 		public int Currenthp

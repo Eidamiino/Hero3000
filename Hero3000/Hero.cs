@@ -17,7 +17,7 @@ namespace Hero3000
 		private Defense magicaldef;
 		private Attack physicalatt;
 		private Attack magicalatt;
-		public Hero(string name, int maxhp, Constants.Class classtype, int physicalatt, int magicalatt, int physicaldef, int magicaldef):base(name, maxhp, physicalatt, magicalatt, physicaldef, magicaldef)
+		public Hero(string name, int maxhp, Constants.Class classtype, int physicalatt, int magicalatt, int physicaldef, int magicaldef):base(name, maxhp)
 		{
 			ClassType = classtype;
 			this.physicaldef = new Defense(Constants.Type.Physical, physicaldef, PhysicaldefCooldown);
