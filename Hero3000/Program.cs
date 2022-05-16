@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Diagnostics;
+using Hero3000.Constants;
 
 namespace Hero3000
 {
 	public class Program
 	{
-		public enum Class { Wizard, Fighter, Pussy }
-		public enum Type { Physical, Magical }
-
-		public const int minCooldown = 500;
-		public const int maxCooldown = 2000;
+		public const int minCooldown = 250;
+		public const int maxCooldown = 500;
 		public static List<Hero> heroes = new List<Hero>();
 		static void Main(string[] args)
 		{
@@ -33,21 +31,21 @@ namespace Hero3000
 			{
 				second = heroes[random.Next(0, heroAmount)];
 			}
-
 			Hero.PrintStats(first);
 			Hero.PrintStats(second);
 			Fight(first, second);
 		}
 		static void Fight(Hero first, Hero second)
 		{
-			while (first.Currenthp > 0 && second.Currenthp > 0)
-			{
-				Stopwatch stopwatchFirst = new Stopwatch();
-				stopwatchFirst.Start();
-				Stopwatch stopwatchSecond = new Stopwatch();
-				stopwatchSecond.Start();
+			Stopwatch stopwatchFirst = new Stopwatch();
+			stopwatchFirst.Start();
+			Stopwatch stopwatchSecond = new Stopwatch();
+			stopwatchSecond.Start();
 
+			while (IsEveryoneAlive(first, second))
+			{
 				first.Attack(second, stopwatchSecond);
+
 				Helpers.PrintHPStatus(first, second);
 				Thread.Sleep(Helpers.GetRandom(minCooldown, maxCooldown));
 				if (Hero.DeathCheck(second))
@@ -64,6 +62,11 @@ namespace Hero3000
 					break;
 				}
 			}
+		}
+
+		private static bool IsEveryoneAlive(Hero first, Hero second)
+		{
+			return first.Currenthp > 0 && second.Currenthp > 0;
 		}
 	}
 

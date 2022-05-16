@@ -19,18 +19,18 @@ namespace Hero3000
 		{
 			Console.WriteLine($"{first.name} has {first.Currenthp}HP\t{second.name} has {second.Currenthp}HP\n");
 		}
-		public static Hero GenerateHero(string name, Program.Class heroClass)
+		public static Hero GenerateHero(string name, Constants.Class heroClass)
 		{
 			int maxhp = GetRandom(minMaxHP, maxMaxHP), physicalatt, magicalatt, physicaldef, magicaldef;
 			switch (heroClass)
 			{
-				case Program.Class.Fighter:
+				case Constants.Class.Fighter:
 					physicalatt = GetRandom(50, 100);
 					magicalatt = GetRandom(25, 40);
 					physicaldef = GetRandom(10, 20);
 					magicaldef = GetRandom(8, 15);
 					break;
-				case Program.Class.Wizard:
+				case Constants.Class.Wizard:
 					physicalatt = GetRandom(25, 40);
 					magicalatt = GetRandom(50, 100);
 					physicaldef =GetRandom(8, 15);

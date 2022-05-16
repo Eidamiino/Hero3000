@@ -6,15 +6,14 @@ namespace Hero3000
 {
 	public class Attack
 	{
-		public string attname;
-
-		public Attack(string attname, Program.Type type, int basedmg)
+		public string Attname { get; private set; }
+		public int Basedmg { get; private set; }
+		public Constants.Type Type { get; private set; }
+		public Attack(string attname, Constants.Type type, int basedmg)
 		{
-			this.attname = attname;
+			Attname = attname;
 			Type = type;
 			Basedmg = basedmg;
 		}
-		public int Basedmg { get; private set; }
-		public Program.Type Type { get; private set; }
 	}
 }
