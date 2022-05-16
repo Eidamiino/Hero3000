@@ -11,19 +11,18 @@ namespace Hero3000
 		public const int ReturnChanceMax = 85;
 		public const double DamageReturned = 0.35;
 
-		public Neutral(string name, int maxhp):base(name,maxhp)
+		public Neutral(string name, int maxhp):base(name,maxhp,0,0,0,0)
 		{
-		}
 
-		public override void Attack(Hero whom, Stopwatch stopwatch)
+		}
+		public void ReturnAttack(FighterBase whom, int currAttack)
 		{
 			int returnAtt = Helpers.GetRandom(0, 101);
 			if (returnAtt <= GetReturnChance())
 			{
-				//whom.Currenthp-=whom.
+				whom.Currenthp -= Convert.ToInt32(currAttack*DamageReturned);
 			}
 		}
-
 		public int GetReturnChance()
 		{
 			var returnChance = Helpers.GetRandom(ReturnChanceMin, ReturnChanceMax);

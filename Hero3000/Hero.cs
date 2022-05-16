@@ -17,7 +17,7 @@ namespace Hero3000
 		private Defense magicaldef;
 		private Attack physicalatt;
 		private Attack magicalatt;
-		public Hero(string name, int maxhp, Constants.Class classtype, int physicalatt, int magicalatt, int physicaldef, int magicaldef):base(name, maxhp)
+		public Hero(string name, int maxhp, Constants.Class classtype, int physicalatt, int magicalatt, int physicaldef, int magicaldef):base(name, maxhp, physicalatt, magicalatt, physicaldef, magicaldef)
 		{
 			ClassType = classtype;
 			this.physicaldef = new Defense(Constants.Type.Physical, physicaldef, PhysicaldefCooldown);
@@ -29,7 +29,7 @@ namespace Hero3000
 
 		#region Attacking
 
-		public override void Attack(Hero whom, Stopwatch stopwatch)
+		public void Attack(FighterBase whom, Stopwatch stopwatch)
 		{
 			int attackType = Helpers.GetRandom(0, 2);
 			int currDmg, currDefense, currDefCooldown;
@@ -41,26 +41,26 @@ namespace Hero3000
 			PrintAttackInfo(whom, currAtt, currDefense,  currDmg);
 
 			dealtDamage = CriticalAttack(dealtDamage);
-			whom.Currenthp -= dealtDamage;
+			whom.DecreaseHealth(dealtDamage);
 			ReturnAttack(stopwatch, currDefCooldown, dealtDamage);
 		}
 
-		private string GetAttackType(Hero whom, int attackType, out int currDmg, out int currDefense, out int currDefCooldown)
+		private string GetAttackType(FighterBase whom, int attackType, out int currDmg, out int currDefense, out int currDefCooldown)
 		{
 			string currAtt;
 			if (attackType == 0)
 			{
-				currAtt = physicalatt.Attname;
-				currDmg = physicalatt.Basedmg;
-				currDefense = whom.physicaldef.Basedef;
-				currDefCooldown = whom.physicaldef.Cooldown;
+				currAtt = PhysicalAtt.Attname;
+				currDmg = PhysicalAtt.Basedmg;
+				currDefense = whom.PhysicalDef.Basedef;
+				currDefCooldown = whom.PhysicalDef.Cooldown;
 			}
 			else
 			{
-				currAtt = magicalatt.Attname;
-				currDmg = magicalatt.Basedmg;
-				currDefense = whom.magicaldef.Basedef;
-				currDefCooldown = whom.magicaldef.Cooldown;
+				currAtt = MagicalAtt.Attname;
+				currDmg = MagicalAtt.Basedmg;
+				currDefense = whom.MagicalDef.Basedef;
+				currDefCooldown = whom.MagicalDef.Cooldown;
 			}
 			return currAtt;
 		}
@@ -89,7 +89,7 @@ namespace Hero3000
 
 		#region Printing
 
-		private void PrintAttackInfo(Hero whom, string currAtt, int currDefense, int currDmg)
+		private void PrintAttackInfo(FighterBase whom, string currAtt, int currDefense, int currDmg)
 		{
 			Console.WriteLine($"{Name} has attacked {whom.Name} with {currAtt}, dealing {currDmg}DMG!");
 			Console.WriteLine($"{whom.Name} has resisted {Convert.ToInt32(currDefense)}DMG!");
