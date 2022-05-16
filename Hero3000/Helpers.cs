@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -17,7 +17,7 @@ namespace Hero3000
 		}
 		public static void PrintHPStatus(Hero first, Hero second)
 		{
-			Console.WriteLine($"{first.name} has {first.Currenthp}HP\t{second.name} has {second.Currenthp}HP\n");
+			Console.WriteLine($"{first.Name} has {first.Currenthp}HP\t{second.Name} has {second.Currenthp}HP\n");
 		}
 		public static Hero GenerateHero(string name, Constants.Class heroClass)
 		{

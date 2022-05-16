@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Diagnostics;
@@ -27,7 +27,7 @@ namespace Hero3000
 
 			Hero first = heroes[random.Next(0,heroAmount)];
 			Hero second = heroes[random.Next(0,heroAmount)];
-			while (first.name == second.name)
+			while (first.Name == second.Name)
 			{
 				second = heroes[random.Next(0, heroAmount)];
 			}
@@ -50,7 +50,7 @@ namespace Hero3000
 				Thread.Sleep(Helpers.GetRandom(minCooldown, maxCooldown));
 				if (Hero.DeathCheck(second))
 				{
-					Console.WriteLine($"{second.name} has died! {first.name} won the battle!");
+					Console.WriteLine($"{second.Name} has died! {first.Name} won the battle!");
 					break;
 				}
 				second.Attack(first, stopwatchFirst);
@@ -58,7 +58,7 @@ namespace Hero3000
 				Thread.Sleep(Helpers.GetRandom(minCooldown, maxCooldown));
 				if (Hero.DeathCheck(first))
 				{
-					Console.WriteLine($"{first.name} has died! {second.name} won the battle!");
+					Console.WriteLine($"{first.Name} has died! {second.Name} won the battle!");
 					break;
 				}
 			}

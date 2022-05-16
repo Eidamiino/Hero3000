@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Diagnostics;
@@ -13,40 +13,19 @@ namespace Hero3000
 		public const int PhysicaldefCooldown= 1000;
 		public const int MagicaldefCooldown = 1000;
 
-		public string name;
-		private int currenthp;
 		private Defense physicaldef;
 		private Defense magicaldef;
 		private Attack physicalatt;
 		private Attack magicalatt;
-		public Hero(string name, int maxhp, Constants.Class classtype, int physicalatt, int magicalatt, int physicaldef, int magicaldef)
+		public Hero(string name, int maxhp, Constants.Class classtype, int physicalatt, int magicalatt, int physicaldef, int magicaldef):base(name, maxhp, physicalatt, magicalatt, physicaldef, magicaldef)
 		{
-			this.name = name;
 			ClassType = classtype;
-			Maxhp = maxhp;
-			Currenthp = maxhp;
 			this.physicaldef = new Defense(Constants.Type.Physical, physicaldef, PhysicaldefCooldown);
 			this.magicaldef = new Defense(Constants.Type.Magical, magicaldef, MagicaldefCooldown);
 			this.physicalatt = new Attack("Punch", Constants.Type.Physical, physicalatt);
 			this.magicalatt = new Attack("Fireball", Constants.Type.Magical, magicalatt);
 		}
 		public Constants.Class ClassType { get; private set; }
-		public int Maxhp { get; private set; }
-		public int Currenthp
-		{
-			get { return currenthp; }
-			private set
-			{
-				if (value > Maxhp)
-				{
-					Console.WriteLine("blbečku");
-				}
-				else
-				{
-					currenthp = value;
-				}
-			}
-		}
 
 		#region Attacking
 
@@ -112,13 +91,13 @@ namespace Hero3000
 
 		private void PrintAttackInfo(Hero whom, string currAtt, int currDefense, int currDmg)
 		{
-			Console.WriteLine($"{name} has attacked {whom.name} with {currAtt}, dealing {currDmg}DMG!");
-			Console.WriteLine($"{whom.name} has resisted {Convert.ToInt32(currDefense)}DMG!");
+			Console.WriteLine($"{Name} has attacked {whom.Name} with {currAtt}, dealing {currDmg}DMG!");
+			Console.WriteLine($"{whom.Name} has resisted {Convert.ToInt32(currDefense)}DMG!");
 		}
 
 		public static void PrintStats(Hero hero)
 		{
-			Console.WriteLine($"Fighter: {hero.name}\t{hero.ClassType}\t{hero.Maxhp}HP\t{hero.physicalatt.Basedmg}DMG\t{hero.magicalatt.Basedmg}mDMG\t{hero.physicaldef.Basedef}DEF\t{hero.magicaldef.Basedef}mDEF\n");
+			Console.WriteLine($"Fighter: {hero.Name}\t{hero.ClassType}\t{hero.MaxHp}HP\t{hero.physicalatt.Basedmg}DMG\t{hero.magicalatt.Basedmg}mDMG\t{hero.physicaldef.Basedef}DEF\t{hero.magicaldef.Basedef}mDEF\n");
 		}
 
 		#endregion
